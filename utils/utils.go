@@ -32,10 +32,16 @@ func PerformPreChecksAndPrepareHost(workDir string) error {
 	}
 
 	if _, err := os.Stat(filepath.Join(workDir, "rancheros.iso")); os.IsNotExist(err) {
-		return Download(workDir, "rancheros.iso", rancherOSURL)
+		err = Download(workDir, "rancheros.iso", rancherOSURL)
+		if err != nil {
+			return err
+		}
 	}
 	if _, err := os.Stat(filepath.Join(workDir, "base-img.img")); os.IsNotExist(err) {
-		return Download(workDir, "base-img.img", baseImageURL)
+		err = Download(workDir, "base-img.img", baseImageURL)
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }
